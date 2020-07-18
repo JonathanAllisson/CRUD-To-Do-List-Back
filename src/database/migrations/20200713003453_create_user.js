@@ -1,5 +1,5 @@
 exports.up = (knex) => {
-  return knex.schema.createTable('users', function (table) {
+  return knex.schema.createTable('users', (table) => {
     table.increments().primary();
     table.string('name').notNullable();
     table.string('email').notNullable();

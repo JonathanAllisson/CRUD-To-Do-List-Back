@@ -6,10 +6,13 @@ const userController = require('./controllers/userController');
 const taskController = require('./controllers/taskController');
 const sessionController = require('./controllers/sessionController');
 
-routes.post('/', sessionController.login);
+const auth = require('./middlewares/auth');
+
 routes.get('/user', userController.index);
 routes.post('/user', userController.create);
-routes.get('/task', taskController.index);
-routes.post('/task', taskController.create);
+routes.post('/signin', sessionController.login);
+routes.get('/task', auth, taskController.index);
+routes.post('/task', auth, taskController.create);
+routes.put('/task', auth, taskController.update);
 
 module.exports = routes;

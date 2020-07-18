@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const connection = require('../database/connection');
 
-const generateAuthToken = function (user) {
+const generateAuthToken = (user) => {
   const token = jwt.sign(
     {
       id: user.id,

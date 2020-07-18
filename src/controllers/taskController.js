@@ -7,13 +7,31 @@ module.exports = {
   },
 
   async create(req, res) {
-    const { title, description, icon } = req.body;
-    const task = await connection('tasks').insert({
-      title,
-      description,
-      icon,
-      user_id: 1,
-    });
-    return res.json(task);
+    try {
+      const { title, description, icon } = req.body;
+      const task = await connection('tasks').insert({
+        title,
+        description,
+        icon,
+        user_id: req.userId,
+      });
+      return res.json(task);
+    } catch (err) {
+      return res.status(401).json({ message: err.message });
+    }
+  },
+
+  async update(req, res) {
+    try {
+      const { title, description, icon, idTask } = req.body;
+      const task = await connection('tasks').where({ id: idTask }).update({
+        title,
+        description,
+        icon,
+      });
+      return res.json({ task });
+    } catch (err) {
+      return res.json({ message: err.message });
+    }
   },
 };

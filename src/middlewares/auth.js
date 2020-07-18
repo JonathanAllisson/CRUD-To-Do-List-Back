@@ -20,9 +20,9 @@ const authMiddleware = async (req, res, next) => {
       });
     }
 
-    req.user_id = data.id;
+    req.userId = data.id;
 
-    next();
+    return next();
   } catch (err) {
     return res.status(500).json({ message: `${JSON.stringify(err)}` });
   }
