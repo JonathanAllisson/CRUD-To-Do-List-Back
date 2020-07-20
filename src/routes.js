@@ -14,5 +14,6 @@ routes.post('/signin', sessionController.login);
 routes.get('/task', auth, taskController.index);
 routes.post('/task', auth, taskController.create);
 routes.put('/task', auth, taskController.update);
+routes.delete('/task:id', auth, taskController.delete);
 
 module.exports = routes;

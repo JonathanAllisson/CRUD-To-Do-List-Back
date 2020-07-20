@@ -4,7 +4,7 @@ const connection = require('../database/connection');
 module.exports = {
   async index(req, res) {
     const users = await connection('users').select('*');
-    return res.json(users);
+    return res.status(200).json(users);
   },
 
   async create(req, res) {
@@ -20,9 +20,9 @@ module.exports = {
         email,
         password: hash,
       });
-      return res.json(user);
+      return res.status(200).json(user);
     } catch (err) {
-      return res.json(err.message);
+      return res.status(400).json(err.message);
     }
   },
 };
