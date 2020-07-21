@@ -8,7 +8,10 @@ const generateAuthToken = (user) => {
       id: user.id,
       email: user.email,
     },
-    process.env.JWT_KEY
+    process.env.JWT_KEY,
+    {
+      expiresIn: process.env.EXPIRESIN,
+    }
   );
   return token;
 };

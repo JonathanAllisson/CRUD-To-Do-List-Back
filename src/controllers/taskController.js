@@ -4,6 +4,7 @@ module.exports = {
   async index(req, res) {
     const tasks = await connection('tasks')
       .select('*')
+      .where({ user_id: req.userId })
       .orderBy('created_at', 'desc');
     return res.status(200).json(tasks);
   },
