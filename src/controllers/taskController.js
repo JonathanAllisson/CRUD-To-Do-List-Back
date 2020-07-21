@@ -30,13 +30,19 @@ module.exports = {
     try {
       const { title, description, icon, idTask } = req.body;
       const date = new Date();
-      const task = await connection('tasks').where({ id: idTask }).update({
-        title,
-        description,
-        icon,
-        created_at: date,
-      });
-      return res.status(200).json({ task });
+      const task = await connection('tasks')
+        .where({ user_id: req.userId })
+        .andWhere({ id: idTask })
+        .update({
+          title,
+          description,
+          icon,
+          created_at: date,
+        });
+      if (task) {
+        return res.status(200).json({ message: 'update successfull' });
+      }
+      return res.status(400).json({ message: 'Not Authorized' });
     } catch (err) {
       return res.status(400).json({ message: err.message });
     }

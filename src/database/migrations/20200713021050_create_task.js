@@ -6,7 +6,7 @@ exports.up = (knex) => {
     table.string('icon').notNullable();
     table.timestamp('created_at').defaultTo(knex.fn.now());
 
-    table.string('user_id').notNullable();
+    table.integer('user_id').notNullable();
 
     table.foreign('user_id').references('id').inTable('users');
   });
