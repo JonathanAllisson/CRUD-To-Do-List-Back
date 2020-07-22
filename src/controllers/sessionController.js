@@ -19,7 +19,7 @@ const generateAuthToken = (user) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await connection('Users').where({ email });
+    const user = await connection('users').where({ email });
     if (!user || (user && user.length === 0)) {
       return res.status(404).json({ message: 'Your account is not correct' });
     }
