@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const promisify = require('util');
 const connection = require('../database/connection');
 
 const authMiddleware = async (req, res, next) => {
@@ -11,7 +10,7 @@ const authMiddleware = async (req, res, next) => {
       });
     }
     const token = authorization.replace('Bearer ', '');
-    const data = await promisify(jwt.verify)(token, process.env.JWT_KEY);
+    const data = jwt.verify(token, process.env.JWT_KEY);
 
     const user = await connection('users').where({ id: data.id });
 
